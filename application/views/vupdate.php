@@ -1,53 +1,80 @@
 <!DOCTYPE html>
-
 <html>
-<head>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-</head>
+<?php require_once('header.php'); ?>
+<?php require_once('sidebar.php'); ?>
 
-<body>
-  <h2 align="center">INSERT PRODUCT INFORMATTION</h2>
-  <div style="text-align: center;">
-     <a href="<?php echo base_url().'index.php/home/index'; ?>"><input type="button" value="Insert Product"></a> |
-    <a href="<?php echo base_url().'index.php/home/updateP'; ?>"><input type="button" value="Update Product"></a> |
-       <a href="<?php echo base_url().'index.php/home/deletP'; ?>"><input type="button" value="Delete Product"></a> |
-        <a  href="<?php echo base_url().'index.php/home/showP'; ?>"><input type="button" value="Show Product"></a>
-      <form method="post">
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+       Update Product Information
+        <small>Preview</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Forms</a></li>
+        <li class="active">Update Product</li>
+      </ol>
+    </section>
+
+    <section class="content">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="box box-info" style="float:">
+
+            <div class="box-body">
+
+                <div class="form-group">
+ <form method="post">
           <div style="color:green;"><?php  echo $success; ?></div>
           <div style="color:red;"> <?php  echo $error; ?> </div>
 
-          <p>ISBN:</p>
+          <label>ISBN:</label>
           <input type="text" name="ISBN">
-          <input type="button" name="searchp" value="search" id="searchP">
+          <input type="button" name="searchp" class="btn btn-primary" value="search" id="searchP">
         </form>
           <div id="updateres" style="display:none;">
+                        <div class="box-header with-border">
+              <h3 class="box-title">Product Information</h3>
+            </div>
              <form method="post">
-    <p>Product Name : </p>
+    <label>Product Name : </label>
         <div style="color:red;" id="pnm"></div>
-        <input type="text" name="productname" id="productname">
-<p>ISBN :</p>
+        <input type="text" class="form-control"  name="productname" id="productname">
+<label>ISBN :</label>
      <div style="color:red;" id="pisbn"></div>
-      <input type="text" name="isbn" id="isbn">
-    <p>Price : </p>
+      <input type="text" class="form-control"  name="isbn" id="isbn">
+    <label>Price : </label>
      <div style="color:red;" id="pprice"></div>
-     <input type="text" name="price" id="price">
-    <p>Quantity :</p> 
-     <div style="color:red;" id="qty"></div><input type="text" name="quantity" id="quantity">
-    <P>Brand Name :</p>
+     <input type="text" class="form-control"  name="price" id="price">
+    <label>Quantity :</label> 
+     <div style="color:red;"  id="qty"></div>
+     <input type="text" class="form-control"  name="quantity" id="quantity">
+    <label>Brand Name :</label>
      <div style="color:red;" id="brande"></div>
-      <input type="text" name="brand" id="brand">
-      <p>
-        <input type="button" name="update" id="updatep" value="Updat Product">
-        <input type="submit" value="Cancel">
-      </p> 
+      <input type="text" class="form-control"  name="brand" id="brand">
+      <div class="box-footer">
+        <input type="button"  class="btn btn-default" name="update" id="updatep" value="Updat Product">
+        <input type="submit" class="btn btn-default" value="Cancel">
+      </div> 
       </form>
-    </div>
-  </div>
+                </div>
+        </div>
+          <div class="box box-warning">
 
+     </div>
+        </div>
+
+      </div>
+
+    </section>
+  </div>
+  <?php require_once('footer.php'); ?>
 </body>
 </html>
 <script>
 $(document).ready(function(){
+
 $("#updateres").css("display","none");
 $("#searchP").click(function(){
  

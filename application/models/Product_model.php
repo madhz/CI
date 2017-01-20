@@ -8,7 +8,16 @@ class Product_model extends CI_Model
         parent::__construct();
 
     }
-    
+        function login($id,$pass)
+    {
+      $sql="SELECT * FROM user where email=? and password=?";
+      $query= $this->db->query($sql,array($id,$pass));
+      $result = $query->result();
+          // print_r($result);
+      return $result;
+  
+
+    }
     //insert into user table
     function insertProduct($data)
     {
@@ -60,6 +69,115 @@ class Product_model extends CI_Model
       return $res;
     }
     
+
+ function jtableconf()
+ {
+  $jtablefields = array(
+   'id' => array (
+    'key' => true,
+    'create' => false,
+    'edit' => false,
+    'list' => false
+   ),
+   'p_name' => array (
+    'title' => 'Product Name',
+    'width' => '40%'
+   ),
+   'ISBN' => array (
+    'title' => 'ISBN',
+    'width' => '20%'
+   ),
+   'price' => array (
+    'title' => 'Price',
+    'width' => '10%'
+   ),
+   'quantity' => array (
+    'title' => 'Quantity',
+    'width' => '10%'
+   ),
+   'brand_name' => array (
+    'title' => 'Brand name',
+    'width' => '40%',
+    // 'create' => false,
+    // 'edit' => false
+   )
+  );
+
+  $jtable = array (
+  'title' => 'Table of product',
+  'tablename' => 'tblProducts', // Important
+  'idname' => 'id', // Important
+  'paging' => true,
+  'pageSize' => 5,
+  'sorting' => true,
+  'defaultSorting' => 'Name ASC',
+  'actions' => array (
+   'listAction' =>   base_url().'index.php/cjtable/listrecord',
+   'createAction' =>  base_url().'index.php/cjtable/create',
+   'updateAction' =>  base_url().'index.php/cjtable/update',
+   'deleteAction' =>  base_url().'index.php/cjtable/deleterecord'
+  ),
+  'fields' => $jtablefields
+  );
+  
+  return $jtable;
+ }
+
+ function listtable($tablename, $sorting = 'id', $start = '0', $size = '10')
+ {
+  
+  $query = $this->db->get($tablename);
+  $recordCount = $query->num_rows();
+  
+  $query = $this->db->query("SELECT * FROM ". $tablename ." ORDER BY  id"  . " LIMIT " . $start . "," . $size );
+  
+  $rows = array();
+  foreach ($query->result() as $row)
+  {
+      $rows[] = $row;
+  }
+
+  $jTableResult = array();
+  $jTableResult['Result'] = "OK";
+  $jTableResult['TotalRecordCount'] = $recordCount;
+  $jTableResult['Records'] = $rows;
+  return json_encode($jTableResult);
+ }
+ 
+ function createrow($tablename, $dataset, $idname)
+ {  
+  $this->db->insert($tablename, $dataset, $idname);
+    
+  $query = $this->db->query("SELECT * FROM " . $tablename . " WHERE ". $idname ." = LAST_INSERT_ID();");
+  $row = array();
+  foreach($query->result_array() as $ro)
+  {
+   $row = $ro;
+  }
+
+  $jTableResult = array();
+  $jTableResult['Result'] = "OK";
+  $jTableResult['Record'] = $row;
+  return json_encode($jTableResult);
+ }
+ 
+ function updaterow($tablename, $dataset, $idname, $id)
+ {  
+  $this->db->update($tablename, $dataset, $idname . " = " . $id);
+  
+  $jTableResult = array();
+  $jTableResult['Result'] = "OK";
+  return json_encode($jTableResult);
+ }
+ 
+ function deleterow($tablename, $idname, $id)
+ {
+  $this->db->delete($tablename, array($idname => $id));
+
+  $jTableResult = array();
+  $jTableResult['Result'] = "OK";
+  return json_encode($jTableResult);
+ } 
    
 }
 ?>

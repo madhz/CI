@@ -14,7 +14,8 @@
         <a href="<?php echo base_url().'index.php/home/deletP'; ?>"><input type="button" value="Delete Product"></a> |
 <a href="#"><input type="button" value="Show Product" action="<?php echo base_url().'index.php/home/showProduct'; ?>"></a>
 <br><br>
- <input type="text" name="productsearch" id="productsearch" placeholder="Serach by product Name" style="float:right;">
+<!-- <input type="text" onkeypress="myFunction()"> -->
+ <input type="text" onkeyup="myFunction()" name="productsearch" id="productsearch" placeholder="Serach by product Name" style="float:right;" >
  <br></br>
  <table border="1" align="center">
 
@@ -64,6 +65,7 @@ foreach ($result as $res) {
 </html>
 <script type="text/javascript">
 $(document).ready(function(){
+
   $('.del').click(function(e) {
    var pid = this.id; // button ID 
    var answer=confirm('Do you want to delete?');
@@ -101,9 +103,27 @@ success:function(data)
         alert('Not Deleted');      
     }
  });
-  ("#productsearch").keyup(function(){
-  
-    alert('sdjfk');
-  });
+
+
 })
+</script>
+<script>
+function myFunction() {
+   var data=$("#productsearch").val();
+   if(data!='')
+   {
+      $.ajax({
+        type:"POST",
+        url:"",
+        dataType:"json",
+        data:data,
+        success:function(){
+          
+        }
+
+        
+
+      })
+   }
+}
 </script>

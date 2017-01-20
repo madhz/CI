@@ -1,28 +1,51 @@
 <!DOCTYPE html>
-
 <html>
-<head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-</head>
 
-<body>
-  <h2 align="center">INSERT PRODUCT INFORMATTION</h2>
-  <div style="text-align: center;">
-     <a href="<?php echo base_url().'index.php/home/index'; ?>"><input type="button" value="Insert Product"></a> |
-    <a href="<?php echo base_url().'index.php/home/updateP'; ?>"><input type="button" value="Update Product"></a> |
-        <a href="<?php echo base_url().'index.php/home/deletP'; ?>"><input type="button" value="Delete Product"></a> |
-        <a  href="<?php echo base_url().'index.php/home/showP'; ?>"><input type="button" value="Show Product"></a>
+<?php require_once('header.php'); ?>
+<?php require_once('sidebar.php'); ?>
 
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+       Delete Product Information
+        <small>Preview</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Forms</a></li>
+        <li class="active">Update Product</li>
+      </ol>
+    </section>
+
+    <section class="content">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="box box-info" style="float:">
+
+            <div class="box-body">
+
+                <div class="form-group">
         <form method="post">
           <div style="color:green;"><?php  echo $success; ?></div>
           <div style="color:red;"> <?php  echo $error; ?> </div>
           <h4>Delete Product</h4>
-          <p>ISBN:</p>
-          <input type="text" name="isbnd">
-          <input type="button" name="deleteP" value="Delete" id="deleteP">
+          <label>ISBN:</label>
+          <input type="text"   class="form-control"   name="isbnd"><br>
+          <input type="button" class="btn btn-default" name="deleteP" value="Delete" id="deleteP">
         </form>
-  </div>
+          
+                </div>
+        </div>
+          <div class="box box-warning">
 
+     </div>
+        </div>
+
+      </div>
+
+    </section>
+  </div>
+  <?php require_once('footer.php'); ?>
 </body>
 </html>
 <script>

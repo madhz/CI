@@ -20,12 +20,19 @@ class Home extends CI_Controller {
 	 */
 	public function index()
 	{
-		$result=array(
-				'success'=>'',
-				'error'=>'',
-				);
-		$this->load->view('vproduct',$result);
+		// $result=array(
+		// 		'success'=>'',
+		// 		'error'=>'',
+		// 		);
+		// $this->load->view('vproduct',$result);
 		// $this->load->model('user_model');
+		$this->load->view('login_admin');
+
+ 		// print_r($data);
+ 		//jtable
+ 		$this->load->model('product_model');  
+ 		$data['jtablescript'] = $this->product_model->jtableconf();
+  	// 	$this->load->view('showjtable', $data);
 
 	}
 	public function add_user(){
@@ -113,15 +120,19 @@ public function username_check($str)
 	public function login()
 	{
 		
-		// $this->load->library('madhura_lib');
 		$id=$this->input->post('email');
 		$password=$this->input->post('pass');
-		// $this->madhura_lib->getLogin($id,$password);
-		$this->load->model('user_model');
-		$result=$this->user_model->login($id,$password);
-		header('Content-Type: application/json');
-        echo json_encode($result);
-		// $this->load->view("login",$result);
+		$this->load->model('product_model');
+		$result=$this->product_model->login($id,$password);
+		if(count($result)>0)
+		{
+					$this->load->view('index2');
+		}
+		else
+		{
+			$this->load->view("login_admin");
+		}
+		
 	}
 	public function addPrdouct()
 	{
@@ -197,7 +208,6 @@ public function username_check($str)
 			'quantity'=>$this->input->post('quantity'),
 			'brand_name'=>$this->input->post('brand'),
 		);
-
 		
 		if($data['p_name']=='')
 		{
@@ -242,7 +252,6 @@ public function username_check($str)
 			$res=$this->product_model->updateProductResult($data);
 			$data=array('res'=>$res);
 			echo json_encode($data);
-				
 		}
 
 
@@ -267,13 +276,12 @@ public function username_check($str)
 	public function showP()
 	{
 
-		$this->load->model('product_model');
-		$data['result'] =$this->product_model->showProductRes();
-
-
-		$this->load->view('vshowproduct',$data);
+			$this->load->model('product_model');  
+ 		$data['jtablescript'] = $this->product_model->jtableconf();
+  		$this->load->view('showjtable', $data);
+		// $this->load->view('showjtable');
 	}
-	public function updatePselect()
+	public function updatePselect()	
 	{
 		$id=$this->input->get('id');
 		$this->load->model('product_model');
@@ -290,4 +298,16 @@ public function username_check($str)
 		echo json_encode($data);
 
 	}
+	public function callInsertProduct()
+	{
+				$result=array(
+				'success'=>'',
+				'error'=>'',
+				);
+		$this->load->view('vproduct',$result);
+	}
+
+
+
+
 }
